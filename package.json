@@ -1,0 +1,27 @@
+{
+  "name": "spaform",
+  "version": "1.0.0",
+  "description": "Nodejs - SPA form",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "MODE=dev node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dodderjs/spaform.git"
+  },
+  "author": "dodderjs",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dodderjs/spaform/issues"
+  },
+  "homepage": "https://github.com/dodderjs/spaform#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "lodash": "^4.17.2",
+    "path": "^0.12.7",
+    "promise-mysql": "^2.0.0"
+  }
+}
