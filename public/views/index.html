@@ -1,11 +1,83 @@
-<!-- public/views/index.html -->
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<title>SPA form v1</title>
+    
+    <link rel="stylesheet" href="https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.1/angular-material.css"> 
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="http://code.angularjs.org/1.5.5/angular.js"></script> 
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+    <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-114/svg-assets-cache.js"></script>
+    <script src="https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.1/angular-material.js"></script>
+    <script src="js/app.js"></script>
 </head>
-<body>
-Booom:)
+
+<body ng-app="spaFormApp" ng-controller="mainController as main" ng-cloak layout="column" layout-align="center center">
+	<md-content layout-margin class="layout-content" flex="600">
+    
+	    <div class="page-header"><h1>Form Validation</h1></div>
+	   
+	    <form name="spaForm" ng-submit="main.submitForm(spaForm.$valid)" novalidate>
+			<div id="messages" ng-show="spaForm.message">{{ spaForm.message }}</div>
+
+	        <md-input-container class="md-block">
+	            <label>Name</label>
+	            <input type="text" name="name" ng-model="formData.name" ng-minlength="4" ng-maxlength="40" required>
+
+				<div class="help-block" ng-messages="spaForm.name.$error" ng-if="spaForm.name.$touched">
+					<p ng-message="minlength">Your name is too short.</p>
+					<p ng-message="maxlength">Your name is too long.</p>
+					<p ng-message="required">Your name is required.</p>
+				</div>
+	        </md-input-container>
+	        
+	        <md-input-container class="md-block">
+	            <label>Email</label>
+	            <input type="email" name="email" ng-model="formData.email" required>
+
+				<div class="help-block" ng-messages="spaForm.email.$error" ng-if="spaForm.email.$touched">
+					<p ng-message="email">Enter valid email</p>
+					<p ng-message="exists">Someone  valid email</p>
+					<p ng-message="required">Email is required.</p>
+				</div>
+	        </md-input-container>
+
+			<md-autocomplete
+				md-input-name="occupation"
+				md-input-minlength="2"
+				md-no-cache="main.noCache"
+				md-selected-item="formData.occupation"
+				md-search-text="formData.occupationText"
+				md-items="item in main.querySearch(formData.occupationText)"
+				md-min-length="2"
+				md-item-text="item.display"
+				md-floating-label="Occupation">
+				<md-item-template>
+					<span md-highlight-text="formData.occupationText">{{item.display}}</span>
+				</md-item-template>
+				<div ng-messages="spaForm.occupation.$error" ng-if="spaForm.occupation.$touched">
+					<div ng-message="required">You <b>must</b> have a favorite state.</div>
+					<div ng-message="minlength">Your entry is not long enough.</div>
+				</div>
+			</md-autocomplete>
+	        
+	        <md-input-container class="md-block">
+	            <label>Birthday</label>
+	            <md-datepicker ng-model="formData.birthday" name="birthday" md-hide-icons="calendar" ng-change="main.birthdayChange(spaForm.birthday);"></md-datepicker>
+
+				<div ng-messages="spaForm.birthday.$error">
+					<div ng-message="valid">The entered value is not a date!</div>
+					<div ng-message="minAge">You are too young!</div>
+				</div>
+	        </md-input-container>
+
+			<md-button class="md-raised" type="submit" ng-disabled="spaForm.$invalid">Submit</md-button>
+	        
+	    </form>
+	</md-content>
 </body>
 </html>
