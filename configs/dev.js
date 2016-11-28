@@ -4,10 +4,9 @@ let configs = {
 		host: 'localhost',
 		user: 'root',
 		password: '',
-		database: 'pi',
+		database: 'spaform',
 		connectionLimit : 100
-	},
-	api_key: ''
+	}
 }
 
 module.exports = configs;

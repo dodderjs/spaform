@@ -22,7 +22,7 @@ app.use(function(req, res, next) {
 // error handlers
 app.use(function(err, req, res) {
   res.status(err.status || 500);
-  res.render('error', {
+  res.send({
     message: err.message,
     error: err
   });
