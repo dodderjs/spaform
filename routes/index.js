@@ -1,11 +1,12 @@
 const express = require('express');
-const configs = require('../configs');
-const db = require('../lib/db');
+const path = require('path');
 
 let router = express.Router();
 
+router.use('/api', require('./api'));
+
 router.get('*', function (req, res) {
-	res.sendfile('../public/views/index.html');
+	res.sendfile(path.join(__dirname, '../public/views/index.html'));
 });
 
 module.exports = router;
